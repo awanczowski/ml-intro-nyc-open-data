@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <!--
+          Copyright 2013 Andrew Wanczowski
+          
+          Licensed under the Apache License, Version 2.0 (the "License");
+          you may not use this file except in compliance with the License.
+          You may obtain a copy of the License at
+          
+            http://www.apache.org/licenses/LICENSE-2.0
+            
+          Unless required by applicable law or agreed to in writing, software
+          distributed under the License is distributed on an "AS IS" BASIS,
+          WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+          See the License for the specific language governing permissions and
+          limitations under the License.
+         -->
+        <title>NYC 311 OpenData</title>
+        <link href="/resources/css/style.css" rel="stylesheet" />
+        <link href="/resources/css/themes/kendo/kendo.common.min.css" rel="stylesheet" />
+        <link href="/resources/css/themes/kendo/kendo.blueopal.min.css" rel="stylesheet" />
+
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=&amp;sensor=true">//</script>
+        <script type="text/javascript" src="/resources/js/jquery-1.7.1.min.js">//</script>
+        <script type="text/javascript" src="/resources/js/kendo.web.min.js">//</script>
+        <script type="text/javascript" src="/resources/js/kendo.dataviz.min.js">//</script>
+        <script type="text/javascript" src="/resources/js/app.js">//</script>
+    </head>
+    <body>
+        <div id="pagewrapper">
+            <div id="head">
+                <h1><span class="blue">NYC</span> 311 <strong>Open</strong>Data</h1>
+                <form name="search" class="search" id="quicksearch">
+                    <input type="text" name="query" />
+                    <input type="submit" class="submit" value="" />
+                </form>
+            </div>
+            <div id="main">
+                <div id="loading">
+                    <img src="/resources/img/Loading.gif" alt="loading" />
+                </div>
+                <div id="intro">
+                    <h2>An Introduction to Search Visualization Using NYC Open Data</h2>
+                    <p>Leveraging the power of MarkLogic's search API, one is able to build a fully functional, rapid prototype of a data visualization application. Learn how to utilize Marklogic search to drive data visualization widgets and map geospatial coordinates via template-based search results.</p>
+                    <p>It's simple to get started. All you need is some background in W3 standards (HTML, CSS, JavaScript) and MarkLogic. The data for this particular application was obtained for free from NYC Open Data (Socarta).</p>
+                    <h3>For More Info Please vist:</h3>
+                    <ul>
+                        <li><a href="http://nycopendata.socrata.com">NYC Open Data</a></li>
+                        <li><a href="http://w3.org">W3 Standards</a></li>
+                        <li><a href="http://marklogic.com">MarkLogic</a></li>
+                        <li><a href="http://jQuery.com">jQuery</a></li>
+                        <li><a href="http://kendoui.com">Kendo UI</a></li>
+                    </ul>
+                </div>
+                <div id="searchWrapper">
+                    <div id="results">
+                        <div id="pagination"></div>
+                        <div id="resultItems"></div>
+                    </div>
+                    <div id="visualzation">
+                        <ul id="years"></ul>
+                        <div id="graph"></div>
+                        <div id="bottom">
+                            <div id="totals">
+                                <p>Total Results</p>
+                                <p class="huge"></p>
+                            </div>
+                            <div id="facetsWrapper">
+                                <div id="agency" class="facet">
+                                    <h3>Agency</h3>
+                                    <ul class="facetItems"> </ul>
+                                </div>
+                                <div id="cType" class="facet">
+                                    <h3>Complaint Type</h3>
+                                    <ul class="facetItems"> </ul>
+                                </div>
+                            </div>
+                            <div id="map">
+                                <div id="mapCanvas"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="foot"></div>
+        </div>
+        <!-- These are templates to be used by kendo ui -->
+        <div id="templates" style="display:none;">
+            <div id="paginationTemplate">
+                <p>Showing results #= fromResult # to #= toResult # of #= total#</p>
+                <p id="prevNext"></p>
+            </div>
+            <div id="prevNextLinkTemplate">
+                <a href="?query=#= query #&amp;start=#= start #">#= text #</a>
+            </div>
+            <div id="resultTemplate">
+                <div class="result">
+                    <p class="count">#= position #</p>
+                    <h4>#= complaint_type #</h4>
+                    <p>#= incident_address # #= city # #= incident_zip #</p>
+                    <p>#= descriptor #</p>
+                    <p>Status: #= status #</p>
+                    <p>Created: #= created_date #</p>
+                </div>
+            </div>
+            <div id="facet">
+                <li><a href="?query=#= query #" class="#= cssClass #">#= value #<span class="count">(#=count #)</span> <span class="remove">#=remove#</span></a></li>
+            </div>
+        </div>
+    </body>
+</html>
